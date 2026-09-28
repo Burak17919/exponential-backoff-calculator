@@ -36,3 +36,10 @@ Jitter uses `Math.floor(random() * (rawDelay + 1))`, so the returned delay is an
 Returns the delay in milliseconds as a number.
 
 Throws `RangeError` if `attempt` is not a positive integer, or if `baseInterval` or `maxDelay` is not a positive finite number.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
